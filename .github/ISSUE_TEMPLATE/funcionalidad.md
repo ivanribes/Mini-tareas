@@ -1,4 +1,3 @@
-
 ---
 name: "Funcionalidad"
 about: "Desarrollo completo de una funcionalidad: frontend, backend e integración"
