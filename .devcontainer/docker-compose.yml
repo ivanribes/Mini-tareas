@@ -1,0 +1,24 @@
+name: mini-tareas
+services:
+  app:
+    image: mcr.microsoft.com/devcontainers/base:bookworm
+    volumes:
+      - ..:/workspace:cached
+    command: sleep infinity
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:18-alpine
+    container_name: mini-tareas-postgres
+    environment:
+      POSTGRES_DB: minitareas_db
+      POSTGRES_USER: minitareas_user
+      POSTGRES_PASSWORD: password123
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+volumes:
+  postgres_data:
