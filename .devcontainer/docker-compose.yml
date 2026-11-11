@@ -1,9 +1,13 @@
+name: mini-tareas
 services:
   app:
     image: mcr.microsoft.com/devcontainers/base:bookworm
     volumes:
       - ..:/workspace:cached
     command: sleep infinity
+    depends_on:
+      - postgres
+
   postgres:
     image: postgres:18-alpine
     container_name: mini-tareas-postgres
