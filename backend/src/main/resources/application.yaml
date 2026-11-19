@@ -19,3 +19,6 @@ management:
 tareas:
   jwt:
     expiration-minutes: 60
+springdoc:
+  swagger-ui:
+    persist-authorization: true

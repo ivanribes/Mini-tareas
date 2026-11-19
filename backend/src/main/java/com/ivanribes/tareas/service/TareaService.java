@@ -20,6 +20,12 @@ public class TareaService {
     private final TareaRepository tareaRepository;
     private final ListaRepository listaRepository;
 
+    private TareaResponse toResponse(Tarea tarea) {
+
+        return new TareaResponse(tarea.getId(), tarea.getNombre(), tarea.getDescripcion(), tarea.isHecha(),
+                tarea.getDatos(), tarea.getLista() != null ? tarea.getLista().getId() : null);
+    }
+
     @Transactional(readOnly = true)
     public Page<TareaResponse> listar(Long listaId, Pageable pageable) {
 
@@ -30,9 +36,9 @@ public class TareaService {
         return tareaRepository.findAll(TareaSpecification.perteneceALista(listaId), pageable).map(this::toResponse);
     }
 
-    private TareaResponse toResponse(Tarea tarea) {
+    @Transactional(readOnly = true)
+    public TareaResponse buscarTareaPorId(Long tareaId) {
 
-        return new TareaResponse(tarea.getId(), tarea.getNombre(), tarea.getDescripcion(), tarea.isHecha(),
-                tarea.getDatos(), tarea.getLista() != null ? tarea.getLista().getId() : null);
+        return tareaRepository.findById(tareaId).map(this::toResponse).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tarea no encontrada"));
     }
 }
