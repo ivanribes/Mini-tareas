@@ -1,4 +1,6 @@
 spring:
+  config:
+    import: optional:classpath:application-local.yaml
   application:
     name: tareas
   datasource:
@@ -14,3 +16,6 @@ management:
     web:
       exposure:
         include: health
+tareas:
+  jwt:
+    expiration-minutes: 60
